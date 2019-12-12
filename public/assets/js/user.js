@@ -58,10 +58,29 @@ $('#userBox').on('click','.edit',function(){
     $.ajax({
         type: "get",
         url: "/users/"+id,
-        // 显示用户修改页面
+        // 显示用户修改页面 
         success: function (response) {
             var html = template('modifyTpl',response);
             $('#modify').html(html)
         }
     });
+});
+
+// 为修改表单添加表单提交事件
+$('#modify').on('submit','#modifyForm',function(){
+    // 获取用户在表单中修改的内容
+    var formData = $(this).serialize();
+    // 获取用户的id
+    var id = $(this).attr('data-id');
+    $.ajax({
+        type: "put",
+        url: "/users/"+id,
+        data:formData,
+        // 表单提交成功后执行
+        success: function (response) {
+           location.reload()
+        }
+    });
+// 阻止表单默认提交
+    return false
 })
