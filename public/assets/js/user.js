@@ -17,7 +17,7 @@ $('#userForm').on('submit', function () {
     });
     // 阻止表单默认提交
     return false
-})
+});
 
 // 当用户头像发生onchange事件
 $('#avatar').on('change', function () {
@@ -37,4 +37,15 @@ $('#avatar').on('change', function () {
             $('#hiddenAvatar').val(response[0].avatar);
         }
     });
-})
+});
+
+// 向服务器发送索要用户列表
+$.ajax({
+    type: "get",
+    url: "/users",
+    success: function (response) {
+        // 显示用户列表
+        var html = template('userTpl',{data:response});
+        $('#userBox').html(html)
+    }
+});
