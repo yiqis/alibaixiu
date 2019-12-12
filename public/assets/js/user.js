@@ -20,7 +20,7 @@ $('#userForm').on('submit', function () {
 });
 
 // 当用户头像发生onchange事件
-$('#avatar').on('change', function () {
+$('#modify').on('change','#avatar', function () {
     var formData = new FormData();
     formData.append('avatar', this.files[0])
     $.ajax({
