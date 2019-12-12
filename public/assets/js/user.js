@@ -20,7 +20,7 @@ $('#userForm').on('submit', function () {
 });
 
 // 当用户头像发生onchange事件
-$('#modify').on('change','#avatar', function () {
+$('#modify').on('change', '#avatar', function () {
     var formData = new FormData();
     formData.append('avatar', this.files[0])
     $.ajax({
@@ -33,7 +33,7 @@ $('#modify').on('change','#avatar', function () {
         contentType: false,
         success: function (response) {
             // 实现头像预览功能
-            $('#preview').attr('src',response[0].avatar);
+            $('#preview').attr('src', response[0].avatar);
             $('#hiddenAvatar').val(response[0].avatar);
         }
     });
@@ -45,55 +45,60 @@ $.ajax({
     url: "/users",
     success: function (response) {
         // 显示用户列表
-        var html = template('userTpl',{data:response});
+        var html = template('userTpl', {
+            data: response
+        });
         $('#userBox').html(html)
     }
 });
 
 //通过事件委托实现用户编辑
-$('#userBox').on('click','.edit',function(){
+$('#userBox').on('click', '.edit', function () {
     // 获取被点击用户的id值
     var id = $(this).attr('data-id');
     // 根据用户id获取用户详细信息
     $.ajax({
         type: "get",
-        url: "/users/"+id,
+        url: "/users/" + id,
         // 显示用户修改页面 
         success: function (response) {
-            var html = template('modifyTpl',response);
+            var html = template('modifyTpl', response);
             $('#modify').html(html)
         }
     });
 });
 // 通过事件委托实现用户删除(单个)
-$('#userBox').on('click','.del',function(){
-    // 获取将要删除的用户id
-    var id = $(this).attr('data-id');
-    // 向服务器发送删除单个用户的请求
-    $.ajax({
-        type: "delete",
-        url: "/users/"+id,
-        success: function (response) {
-            location.reload()
-        }
-    });
+$('#userBox').on('click', '.del', function () {
+    if (confirm('您确定要删除这个用户?')) {
+        // 获取将要删除的用户id
+        var id = $(this).attr('data-id');
+        // 向服务器发送删除单个用户的请求
+        $.ajax({
+            type: "delete",
+            url: "/users/" + id,
+            success: function (response) {
+                location.reload()
+            }
+        });
+    }
+
 })
 
 // 为修改表单添加表单提交事件
-$('#modify').on('submit','#modifyForm',function(){
+$('#modify').on('submit', '#modifyForm', function () {
     // 获取用户在表单中修改的内容
     var formData = $(this).serialize();
     // 获取用户的id
     var id = $(this).attr('data-id');
     $.ajax({
         type: "put",
-        url: "/users/"+id,
-        data:formData,
+        url: "/users/" + id,
+        data: formData,
         // 表单提交成功后执行
         success: function (response) {
-           location.reload()
+            location.reload()
         }
     });
-// 阻止表单默认提交
+    // 阻止表单默认提交
     return false
 })
