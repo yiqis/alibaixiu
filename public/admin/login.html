@@ -51,13 +51,15 @@
           email: email,
           password: password
         },
+        // 登陆成功执行
         success: function (response) {
           //  登陆成功时跳转到index.html页面
           location.href = 'index.html'
           console.log(response);
         },
+        // 登陆失败执行
         error: function (xhr) {
-          console.log(xhr)
+          alert('账号密码错误'); 
         }
       });
     })
