@@ -65,6 +65,19 @@ $('#userBox').on('click','.edit',function(){
         }
     });
 });
+// 通过事件委托实现用户删除(单个)
+$('#userBox').on('click','.del',function(){
+    // 获取将要删除的用户id
+    var id = $(this).attr('data-id');
+    // 向服务器发送删除单个用户的请求
+    $.ajax({
+        type: "delete",
+        url: "/users/"+id,
+        success: function (response) {
+            location.reload()
+        }
+    });
+})
 
 // 为修改表单添加表单提交事件
 $('#modify').on('submit','#modifyForm',function(){
