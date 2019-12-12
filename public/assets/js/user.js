@@ -49,3 +49,17 @@ $.ajax({
         $('#userBox').html(html)
     }
 });
+
+//通过事件委托实现用户编辑
+$('#userBox').on('click','.edit',function(){
+    // 获取被点击用户的id值
+    var id = $(this).attr('data-id');
+    // 根据用户id获取用户详细信息
+    $.ajax({
+        type: "get",
+        url: "/users/"+id,
+        success: function (response) {
+            console.log(response)
+        }
+    });
+})
