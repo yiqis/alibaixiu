@@ -58,8 +58,10 @@ $('#userBox').on('click','.edit',function(){
     $.ajax({
         type: "get",
         url: "/users/"+id,
+        // 显示用户修改页面
         success: function (response) {
-            console.log(response)
+            var html = template('modifyTpl',response);
+            $('#modify').html(html)
         }
     });
 })
