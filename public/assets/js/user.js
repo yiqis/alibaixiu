@@ -67,6 +67,7 @@ $('#userBox').on('click', '.edit', function () {
         }
     });
 });
+
 // 通过事件委托实现用户删除(单个)
 $('#userBox').on('click', '.del', function () {
     if (confirm('您确定要删除这个用户?')) {
@@ -101,4 +102,70 @@ $('#modify').on('submit', '#modifyForm', function () {
     });
     // 阻止表单默认提交
     return false
+});
+
+// 获取全选按钮
+var selectAll = $('#selectAll');
+// 获取批量删除按钮
+var deleteMany = $('#deleteMany')
+
+// 当全选按钮处于选中状态
+selectAll.on('change', function () {
+    // 获取全选按钮当前状态
+    var status = $(this).prop('checked');
+
+    if(status){
+        // 显示批量删除按钮
+        deleteMany.show();
+    }else{
+        // 隐藏批量删除按钮
+        deleteMany.hide();
+    }
+    // 获取所有用户并将用户的状态和全选按钮保持一致
+    $('#userBox').find('input').prop('checked', status);
+});
+// 当用户前面的复选框发生改变时
+$('#userBox').on('change', '.userStatus', function () {
+    // 获取到所有用户 在所有用户中过滤选中的用户 
+    // 判断选中的用户数量和所有的用户数量是否一致
+    // 如果一致 就说明所有的用户都是选中的
+    // 否则 就是有用户没有选中
+    var input =$('#userBox').find('input');
+    if(input.length==input.filter(':checked').length){
+        // alert('所有的用户都是选中的')
+        selectAll.prop('checked',true);
+    }else {
+        // alert('不是所有的用户都是选中的');
+        selectAll.prop('checked',false);
+    }
+
+    // 如果选中的复选框的数量大于零 就说明有选中的复选框
+    if(input.filter(':checked').length>0){
+        // 显示批量删除按钮
+        deleteMany.show();
+    }else{
+        // 隐藏批量删除按钮
+        deleteMany.hide();
+    }
+});
+
+// 为批量删除按钮添加点击事件
+deleteMany.on('click',function () { 
+    var ids = [];
+    // 获取选中的用户
+   var checkedUser = $('#userBox').find('input').filter(':checked');
+    // 循环复选框 从复选框元素的身上获取data-id属性的值
+    checkedUser.each(function (index,element) { 
+        ids.push($(element).attr('data-id'));
+    });
+    if(confirm('你真的确定要进行批量删除操作吗')){
+        $.ajax({
+            type: "delete",
+            url: "/users/"+ids.join('-'),
+            success: function (response) {
+                location.reload();
+            }
+        });
+    }
+    
 })
