@@ -41,3 +41,20 @@ $('#categoryBox').on('click', '.edit', function () {
         }
     });
 })
+
+// 为删除按钮添加点击事件
+$('#categoryBox').on('click','.del',function(){
+    if(confirm('你真的要执行删除操作吗')){
+        // 获取要删除的分类数据id
+        var id = $(this).attr('data-id');
+        // 向服务器端发送请求 删除分类数据
+        $.ajax({
+            type: "delete",
+            url: "/categories/"+id,
+            success: function (response) {
+                location.reload();
+            }
+        });
+    }
+   
+})
