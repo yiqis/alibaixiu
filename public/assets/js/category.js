@@ -26,3 +26,18 @@ $.ajax({
         $('#categoryBox').html(html);
     }
 });
+
+// 为编辑按钮添加点击事件
+$('#categoryBox').on('click', '.edit', function () {
+    // 获取要修改数据的id
+    var id = $(this).attr('data-id');
+    // 根据id获取分类数据的详细数据
+    $.ajax({
+        type: "get",
+        url: "/categories/" + id,
+        success: function (response) {
+           var html = template('modifyCategoryTpl',response);
+           $('#formBox').html(html);
+        }
+    });
+})
