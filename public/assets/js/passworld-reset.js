@@ -2,7 +2,6 @@
 $('#modifyForm').on('submit', function () {
     // 获取用户在表单中输入的内容
     var formData = $(this).serialize();
-    console.log(formData);
     // 调用接口实现密码修改功能
     $.ajax({
         type: "put",

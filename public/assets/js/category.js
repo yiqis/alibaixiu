@@ -1,19 +1,19 @@
 // 当添加分类表单发生提交行为的时候
-$('#addCategory').on('submit', function () {
-    // 获取用户在表单中输入的内容
+
+$('#addCategory').on('submit',function(){
     var formData = $(this).serialize();
-    // 向服务器端发送请求 添加分类
     $.ajax({
         type: "post",
         url: "/categories",
         data: formData,
         success: function (response) {
-            location.reload()
+            location.reload();
         }
     });
-    // 阻止表单默认提交
+    // 阻止表单默认提交事件
     return false;
 })
+
 
 // 发送ajax请求,向服务器发送所有用户列表的请求
 $.ajax({
