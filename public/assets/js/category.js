@@ -29,18 +29,30 @@ $.ajax({
 
 
 // 为编辑按钮添加点击事件
-$('#categoryBox').on('click', '.edit', function () {
-    // 获取要修改数据的id
+$('#categoryBox').on('click','.edit',function(){
     var id = $(this).attr('data-id');
-    // 根据id获取分类数据的详细数据
     $.ajax({
         type: "get",
-        url: "/categories/" + id,
+        url: "/categories/"+id,
         success: function (response) {
-           var html = template('modifyCategoryTpl',response);
-           $('#formBox').html(html);
+            var html = template('modifyCategoryTpl',response);
+            $('#formBox').html(html);
         }
     });
+})
+// 根据id修改分类
+$('#formBox').on('submit','#modifyCategory',function(){
+    var formData = $(this).serialize();
+    var id = $(this).attr('data-id');
+    $.ajax({
+        type: "put",
+        url: "/categories/"+id,
+        data: formData,
+        success: function (response) {
+            location.reload();
+        }
+    });
+    return false;
 })
 
 // 为删除按钮添加点击事件
