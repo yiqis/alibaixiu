@@ -14,22 +14,25 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 // session配置
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: false
 }));
 // 处理post参数
 app.use(formidableMiddleware({
 	// 文件上传目录
 	uploadDir: path.join(__dirname, 'public', 'uploads'),
 	// 最大上传文件为2M
-	maxFileSize: 2 * 1024 * 1024,
+	maxFileSize: 50 * 1024 * 1024,
 	// 保留文件扩展名
 	keepExtensions: true
 }));
 
 // 数据库连接
-mongoose.connect('mongodb://localhost:27017/alibaixiu', { useNewUrlParser: true, useCreateIndex: true})
+mongoose.connect('mongodb://localhost:27017/alibaixiu', {
+		useNewUrlParser: true,
+		useCreateIndex: true
+	})
 	.then(() => console.log('数据库连接成功'))
 	.catch(() => console.log('数据库连接失败'));
 
