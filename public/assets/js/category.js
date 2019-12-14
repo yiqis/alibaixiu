@@ -20,12 +20,13 @@ $.ajax({
     type: "get",
     url: "/categories",
     success: function (response) {
-        var html = template('categoryListTpl', {
-            data: response
+        var html = template('categoryListTpl',{
+            data:response
         });
         $('#categoryBox').html(html);
     }
 });
+
 
 // 为编辑按钮添加点击事件
 $('#categoryBox').on('click', '.edit', function () {
