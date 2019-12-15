@@ -27,7 +27,6 @@ $('#formBox').on('change','#feature',function () {
             $('#preview').attr('src', response[0].cover).show();
         }
     });
-
  });
 
 // 当添加文章表单提交的时候
