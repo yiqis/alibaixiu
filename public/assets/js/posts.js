@@ -58,3 +58,15 @@ $('#formSelect').on('submit',function(){
     });
     return false
 })
+
+// 删除
+$('#formBox').on('click','.del',function(){
+    var id = $(this).attr('data-id');
+   $.ajax({
+       type: "delete",
+       url: "/posts/"+id,
+       success: function (response) {
+           location.reload()
+       }
+   });
+})
