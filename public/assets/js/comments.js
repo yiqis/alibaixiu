@@ -31,9 +31,6 @@ function changePage(page){
         success: function (response) {
             var html = template('commentsTpl',response);
             $('#commentsBox').html(html);
-            console.log(response);
-            var page = template('pageTpl',response);
-            $('#pageBox').html(page)
         }
     });
 }
