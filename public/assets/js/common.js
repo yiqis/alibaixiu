@@ -22,3 +22,13 @@ function formateDate(date) {
   date =  new Date(date);
   return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
 }
+
+// 向服务器端发送请求,索要用户登陆信息
+$.ajax({
+  type: "get",
+  url: "/users/"+userId,
+  success: function (response) {
+    $('.profile .avatar').attr('src',response.avatar);
+    $('.profile .name').html(response.nickName)
+  }
+});

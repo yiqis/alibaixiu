@@ -1,3 +1,10 @@
+<!-- 登陆拦截 -->
+<script src="/login/status"></script>
+<script>
+  if (!isLogin) {
+    location.href = 'login.html'
+  }
+</script>
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -145,6 +152,8 @@
 
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="../assets/js/common.js"></script>
+
   <script>
     NProgress.done()
   </script>
@@ -180,7 +189,7 @@
           <label class="form-image">
             <input id="avatar" type="file">
             {{if avatar}}
-            <img src="{{avatar}}" id="preview" >
+            <img src="{{avatar}}" id="preview">
             {{else}}
             <img src="../assets/img/default.png" id="preview">
             {{/if}}
