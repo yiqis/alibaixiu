@@ -38,3 +38,15 @@ $.ajax({
         $('#slidesBox').html(html);
     }
 });
+
+// 轮播图删除
+$('#slidesBox').on('click','.del',function(){
+    var id = $(this).attr('data-id');
+    $.ajax({
+        type: "delete",
+        url: "/slides/"+id,
+        success: function (response) {
+            location.reload();
+        }
+    });
+})

@@ -54,8 +54,12 @@
         // 登陆成功执行
         success: function (response) {
           //  登陆成功时跳转到index.html页面
-          location.href = 'index.html'
-          console.log(response);
+          if(response.role == 'admin'){
+
+            location.href = '/admin/index.html'
+          }else {
+            location.href = '/index.html'
+          }
         },
         // 登陆失败执行
         error: function (xhr) {
