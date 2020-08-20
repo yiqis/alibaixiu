@@ -1,6 +1,6 @@
 const { User } = require('../../../model/User');
 // hash密码
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 module.exports = async (req, res) => {
 	// 判断用户是否处于登录状态

@@ -1,6 +1,6 @@
 const { User, validateLogin } = require('../../../model/User');
 // hash密码
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 // 工具
 const _ = require('lodash');
 

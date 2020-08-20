@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 // 对象规则验证
 const Joi = require('joi');
 // hash密码
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // 用户集合规则
 const UserSchema = new Schema({
